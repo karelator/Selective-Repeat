@@ -1,0 +1,18 @@
+# Reliable Data Transport Simulator
+
+Simulates reliable data transfer over an unreliable network using the **Selective Repeat ARQ** algorithm.  
+Built for the INF-2300 Networking course (UiT – The Arctic University of Norway).
+
+##  Overview
+- Models the **Application**, **Transport**, and **Network** layers of the OSI stack.  
+- Handles **packet loss**, **delay**, and **corruption**.  
+- Implements **Selective Repeat** for reliable, ordered delivery.
+- Adjust network behavior in **config.py**
+
+##  Run
+```bash 
+cd src
+python simulation.py
+```
+
+
