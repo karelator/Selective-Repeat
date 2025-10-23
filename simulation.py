@@ -5,6 +5,7 @@ from logging import DEBUG as LOGGER_DEBUG
 from random import seed
 from sys import exit
 from signal import signal, SIGINT
+import time
 
 from config import PACKET_NUM, PACKET_SIZE, RANDOM_SEED, RANDOM_RUN
 from osi import OSIStack
@@ -45,6 +46,10 @@ class Sim:
         # This is the main program loop
         while self.should_continue():
             self.alice.tick()
+        for stack in (self.alice, self.bob):
+            tl = stack.transport_layer
+            if hasattr(tl, "timer") and tl.timer and tl.timer.is_alive():
+                tl.timer.cancel()
             # Traps 'Ctrl-C' and try to exit nicely.
             signal(SIGINT, sigint_handler)
 
@@ -54,4 +59,4 @@ if __name__ == "__main__":
         seed(RANDOM_SEED)
     sim = Sim()
     sim.run()
-    print("Finished!")
+    time.sleep(2)  # Wait a bit for any last logging messages to appear
